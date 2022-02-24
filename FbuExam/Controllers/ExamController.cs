@@ -34,6 +34,18 @@ namespace FbuExam.Controllers
                 ExamDefinitionViewModel vm = new ExamDefinitionViewModel();
                 vm.Id = exam.Id;
                 vm.Name = exam.Name;
+               
+                vm.Questions = new List<QuestionViewModel>();
+
+                foreach(var q in exam.Questions)
+                {
+                    QuestionViewModel qw = new QuestionViewModel();
+                    qw.Id = q.Id;
+                    qw.ExamId = q.ExamId;
+                    qw.QuestionText = q.QuestionText;
+                    vm.Questions.Add(qw);
+                }
+
                 model.Add(vm);
             }
 
@@ -60,13 +72,13 @@ namespace FbuExam.Controllers
             dataModel.Name = model.Name;
             dataModel.Id = model.Id;
             _examRepository.InsertOrUpdate(dataModel);
-            return RedirectToAction("ListExam");
+            return RedirectToAction("ListExams");
         }
 
         public IActionResult Delete(int id)
         {
             _examRepository.Delete(id);
-            return RedirectToAction("ListExam");
+            return RedirectToAction("ListExams");
         }
     }
 }

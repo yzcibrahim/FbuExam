@@ -12,6 +12,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
             </th>
@@ -22,20 +23,75 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "AddExam", new {  id=item.Id  }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    
+                    <i onclick="showHideDetail(@item.Id)" id="btn_@item.Id" class="bi bi-caret-right"></i>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "AddExam", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+
+            @if (item.Questions.Count > 0)
+            {
+                <tr style="display:none" id="tr_@item.Id">
+                    <td colspan="3">
+                        <table class="detailTable">
+                            @{
+                                string myStyle = "";
+                            }
+                            @foreach (var q in item.Questions)
+                            {
+
+                                //if(String.IsNullOrEmpty(myStyle))
+                                //{
+                                //    myStyle = "background-color: gray;";
+                                //}
+                                //else
+                                //{
+                                //    myStyle = "";
+                                //}
+                                myStyle = String.IsNullOrEmpty(myStyle) ? "background-color: gray;" : "";
+
+                                <tr style="@myStyle">
+                                    <td>@q.QuestionText</td>
+                                </tr>
+
+                            }
+
+                        </table>
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<style>
+
+    .detailTable {
+        border: 1px solid black;
+    }
+</style>
+
+<script>
+    function showHideDetail(id) {
+        var elementId = "#tr_" + id;
+        $(elementId).toggle();
+
+        var iconId = "#btn_" + id;
+        $(iconId).toggleClass("bi-caret-right");
+        $(iconId).toggleClass("bi-caret-down");
+    }
+</script>

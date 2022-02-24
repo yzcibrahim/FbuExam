@@ -1,4 +1,5 @@
 ﻿using ExamDal.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace ExamDal.Repositories
 
         public List<ExamDefinition> GetExams()
         {
-            List<ExamDefinition> liste = _ctx.ExamDefinitions.ToList();
+            List<ExamDefinition> liste = _ctx.ExamDefinitions.Include(c=>c.Questions).ToList();
             return liste;
         }
 
