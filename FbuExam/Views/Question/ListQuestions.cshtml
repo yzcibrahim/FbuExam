@@ -1,0 +1,52 @@
+﻿@model IEnumerable<FbuExam.Models.QuestionViewModel>
+
+@{
+    ViewData["Title"] = "Question Listesi";
+}
+
+<h1>ListQuestions</h1>
+
+<p>
+    <a asp-action="AddQuestion">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExamId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExamName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExamId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExamName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "AddQuestion", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

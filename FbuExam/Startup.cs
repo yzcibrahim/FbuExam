@@ -29,7 +29,7 @@ namespace FbuExam
                 options.UseSqlServer(Configuration.GetConnectionString("MssqlConnection")));
 
             services.AddTransient<ExamRepository>();
-
+            services.AddTransient<QuestionRepository>();
             services.AddControllersWithViews();
         }
 

@@ -21,7 +21,7 @@ namespace FbuExam.Controllers
             return View();
         }
 
-        public IActionResult ListExam()
+        public IActionResult ListExams()
         {
             List<ExamDefinitionViewModel> model = new List<ExamDefinitionViewModel>();
             //model.Add(new ExamDefinitionViewModel() { Name = "test" });
