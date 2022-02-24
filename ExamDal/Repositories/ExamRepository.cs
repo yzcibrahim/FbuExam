@@ -15,9 +15,16 @@ namespace ExamDal.Repositories
             _ctx = ctx;
 
         }
-        public void Insert(ExamDefinition exam)
+        public void InsertOrUpdate(ExamDefinition exam)
         {
-            _ctx.ExamDefinitions.Add(exam);
+            if (exam.Id <= 0)
+            {
+                _ctx.ExamDefinitions.Add(exam);
+            }
+            else {
+                var updateEdilecek = _ctx.ExamDefinitions.Find(exam.Id);
+                updateEdilecek.Name = exam.Name;
+            }
             _ctx.SaveChanges();
 
         }
@@ -26,6 +33,19 @@ namespace ExamDal.Repositories
         {
             List<ExamDefinition> liste = _ctx.ExamDefinitions.ToList();
             return liste;
+        }
+
+        public ExamDefinition GetExamById(int id)
+        {
+            ExamDefinition result = _ctx.ExamDefinitions.First(c => c.Id == id);
+            return result;
+        }
+
+        public void Delete(int id)
+        {
+            var silinecek = GetExamById(id);
+            _ctx.ExamDefinitions.Remove(silinecek);
+            _ctx.SaveChanges();
         }
     }
 }

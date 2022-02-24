@@ -41,10 +41,15 @@ namespace FbuExam.Controllers
             return View(model);
         }
 
-        public IActionResult AddExam()
+        public IActionResult AddExam(int id)
         {
             ExamDefinitionViewModel model = new ExamDefinitionViewModel();
-
+           if(id>0)
+            {
+                ExamDefinition dataModel = _examRepository.GetExamById(id);
+                model.Id = dataModel.Id;
+                model.Name = dataModel.Name;
+            }
             return View(model);
         }
 
@@ -53,8 +58,14 @@ namespace FbuExam.Controllers
         {
             ExamDefinition dataModel = new ExamDefinition();
             dataModel.Name = model.Name;
+            dataModel.Id = model.Id;
+            _examRepository.InsertOrUpdate(dataModel);
+            return RedirectToAction("ListExam");
+        }
 
-            _examRepository.Insert(dataModel);
+        public IActionResult Delete(int id)
+        {
+            _examRepository.Delete(id);
             return RedirectToAction("ListExam");
         }
     }
