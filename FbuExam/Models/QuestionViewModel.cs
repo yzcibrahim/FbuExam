@@ -16,5 +16,8 @@ namespace FbuExam.Models
         public int ExamId { get; set; }
 
         public string ExamName { get; set; }
+
+        public int QuestionOrder { get; set; }
+        public List<ExamDefinitionViewModel> AllExams { get; set; } = new List<ExamDefinitionViewModel>();
     }
 }

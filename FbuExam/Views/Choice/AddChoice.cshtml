@@ -1,0 +1,53 @@
+﻿@model ExamDal.Entities.Choice
+
+@{
+    ViewData["Title"] = "AddChoice";
+}
+
+<h1>AddChoice</h1>
+
+<h4>Choice</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddChoice">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input readonly asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ChoiceNum" class="control-label"></label>
+                <input asp-for="ChoiceNum" class="form-control" />
+                <span asp-validation-for="ChoiceNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ChText" class="control-label"></label>
+                <input asp-for="ChText" class="form-control" />
+                <span asp-validation-for="ChText" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsCorrect" /> @Html.DisplayNameFor(model => model.IsCorrect)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionId" class="control-label"></label>
+                <input asp-for="QuestionId" class="form-control" />
+                <span asp-validation-for="QuestionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

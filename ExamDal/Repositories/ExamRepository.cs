@@ -38,7 +38,7 @@ namespace ExamDal.Repositories
 
         public ExamDefinition GetExamById(int id)
         {
-            ExamDefinition result = _ctx.ExamDefinitions.First(c => c.Id == id);
+            ExamDefinition result = _ctx.ExamDefinitions.Include(c=>c.Questions).First(c => c.Id == id);
             return result;
         }
 

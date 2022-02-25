@@ -54,7 +54,19 @@ namespace FbuExam.Controllers
                 model.Id = question.Id;
                 model.ExamId = question.ExamId;
                 model.QuestionText = question.QuestionText;
+                model.QuestionOrder = question.QuestionOrder;
             }
+
+            List<ExamDefinition> examList=_examRepository.GetExams();
+
+            foreach(var exam in examList)
+            {
+                ExamDefinitionViewModel exVM = new ExamDefinitionViewModel();
+                exVM.Id = exam.Id;
+                exVM.Name = exam.Name;
+                model.AllExams.Add(exVM);
+            }
+
             return View(model);
         }
 
@@ -69,7 +81,8 @@ namespace FbuExam.Controllers
             { 
                 Id = model.Id,
                 ExamId = model.ExamId,
-                QuestionText = model.QuestionText
+                QuestionText = model.QuestionText,
+                QuestionOrder=model.QuestionOrder
             };
             _questionRepository.AddOrUpdateQuestion(q);
 

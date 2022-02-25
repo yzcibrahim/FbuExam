@@ -47,30 +47,7 @@
             {
                 <tr style="display:none" id="tr_@item.Id">
                     <td colspan="3">
-                        <table class="detailTable">
-                            @{
-                                string myStyle = "";
-                            }
-                            @foreach (var q in item.Questions)
-                            {
-
-                                //if(String.IsNullOrEmpty(myStyle))
-                                //{
-                                //    myStyle = "background-color: gray;";
-                                //}
-                                //else
-                                //{
-                                //    myStyle = "";
-                                //}
-                                myStyle = String.IsNullOrEmpty(myStyle) ? "background-color: gray;" : "";
-
-                                <tr style="@myStyle">
-                                    <td>@q.QuestionText</td>
-                                </tr>
-
-                            }
-
-                        </table>
+                        @Html.Partial("_QuestionListPartial", item.Questions)
                     </td>
                 </tr>
             }
@@ -80,8 +57,22 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 <style>
 
-    .detailTable {
-        border: 1px solid black;
+  
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    #detailTable  tr:nth-child(even) {
+        background-color: #dddddd;
     }
 </style>
 

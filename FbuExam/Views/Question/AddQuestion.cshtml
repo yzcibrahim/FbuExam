@@ -20,12 +20,26 @@
             <div class="form-group">
                 <label asp-for="QuestionText" class="control-label"></label>
                 @*<input asp-for="QuestionText" class="form-control" />*@
-                <textarea asp-for="QuestionText" class="form-control" ></textarea>
+                <textarea asp-for="QuestionText" class="form-control"></textarea>
                 <span asp-validation-for="QuestionText" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="QuestionOrder" class="control-label"></label>
+                @*<input asp-for="QuestionText" class="form-control" />*@
+                <input asp-for="QuestionOrder" class="form-control"></input>
+                <span asp-validation-for="QuestionOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="ExamId" class="control-label"></label>
-                <input asp-for="ExamId" class="form-control" />
+                @*  <input asp-for="ExamId" class="form-control" />*@
+                <select id="ExamId" name="ExamId" class="form-control">
+                    @foreach (var exam in Model.AllExams)
+                    {
+                        <option value="@exam.Id">@exam.Name</option>
+                    }
+
+
+                </select>
                 <span asp-validation-for="ExamId" class="text-danger"></span>
             </div>
             <div class="form-group">

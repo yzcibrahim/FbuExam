@@ -30,6 +30,7 @@ namespace FbuExam
 
             services.AddTransient<ExamRepository>();
             services.AddTransient<QuestionRepository>();
+            services.AddTransient<ChoiceRepository>();
             services.AddControllersWithViews();
         }
 

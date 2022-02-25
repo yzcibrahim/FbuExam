@@ -12,7 +12,7 @@ namespace FbuExam.Models
         [Required]
         public string Name { get; set; }
 
-        public List<QuestionViewModel> Questions { get; set; }
+        public List<QuestionViewModel> Questions { get; set; } = new List<QuestionViewModel>();
 
     }
 }

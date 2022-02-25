@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ChoiceViewModel>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="AddChoice">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChoiceNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCorrect)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChoiceNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChText)
+            </td>
+            <td>
+                @*@if (item.IsCorrect)
+                {
+                    @Html.Raw("Doğru")
+                }
+                else
+                {
+                    @Html.Raw("Yanlış")
+                }*@
+                   @Html.DisplayFor(modelItem => item.IsCorrect)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question.Id)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "AddChoice", new {  id=item.Id  }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

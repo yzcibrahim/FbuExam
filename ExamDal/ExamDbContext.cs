@@ -16,5 +16,7 @@ namespace ExamDal
         }
         public DbSet<ExamDefinition> ExamDefinitions { get; set; }
         public DbSet<Question> Questions { get; set; }
+
+        public DbSet<Choice> Choices { get; set; }
     }
 }
