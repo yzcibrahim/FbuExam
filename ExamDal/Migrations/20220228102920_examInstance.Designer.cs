@@ -4,14 +4,16 @@ using ExamDal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExamDal.Migrations
 {
     [DbContext(typeof(ExamDbContext))]
-    partial class ExamDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220228102920_examInstance")]
+    partial class examInstance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,8 +61,6 @@ namespace ExamDal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ExamDefId");
 
                     b.ToTable("Exams");
                 });
@@ -139,17 +139,6 @@ namespace ExamDal.Migrations
                         .IsRequired();
 
                     b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("ExamDal.Entities.Exam", b =>
-                {
-                    b.HasOne("ExamDal.Entities.ExamDefinition", "examDef")
-                        .WithMany()
-                        .HasForeignKey("ExamDefId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("examDef");
                 });
 
             modelBuilder.Entity("ExamDal.Entities.ExamAnswer", b =>

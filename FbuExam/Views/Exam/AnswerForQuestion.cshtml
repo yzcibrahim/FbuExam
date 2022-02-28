@@ -1,0 +1,21 @@
+﻿@model ExamDal.Entities.Question
+
+<div class="row">
+    <div class="col-md-12">
+        @Model.QuestionText
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">A)@Model.Choice[0].ChText</div>
+    <div class="col-md-6">B)@Model.Choice[1].ChText</div>
+</div>
+<div class="row">
+    <div class="col-md-6">C)@Model.Choice[2].ChText</div>
+    <div class="col-md-6">D)@Model.Choice[3].ChText</div>
+</div>
+<form asp-action="AnswerForQuestion">
+    <input type="text" id="answerText" name="answerText" />
+    <input type="hidden" id="ExamInstanceId" name="ExamInstanceId" value="@ViewBag.ExamInstanceId" />
+    <input type="hidden" id="QuestionId" name="QuestionId" value="@Model.Id" />
+    <input type="submit" value="Sonraki" />
+</form>

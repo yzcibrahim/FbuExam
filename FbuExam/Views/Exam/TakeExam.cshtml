@@ -1,0 +1,22 @@
+﻿@model ExamDal.Entities.Exam;
+
+    <form asp-action="StartExam">
+        <input type="hidden" asp-for="ExamDefId" />
+        <div class="row">
+            <div class="col-md-6">
+                <label>@Model.examDef.Name</label>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>UserName:</label>
+                <input type="text" asp-for="UserName" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <input class="btn btn-primary" type="submit" value="Start" />
+            </div>
+        </div>
+    </form>

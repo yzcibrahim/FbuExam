@@ -158,5 +158,57 @@ namespace FbuExam.Controllers
             _examRepository.Delete(id);
             return RedirectToAction("ListExams");
         }
+
+
+        public IActionResult TakeExam(int id)
+        {
+            ExamDefinition ExamToSolve = _examRepository.GetExamById(id);
+            Exam model = new Exam();
+            model.ExamDefId = id;
+            model.examDef = ExamToSolve;
+            return View(model);
+        }
+        public IActionResult StartExam(Exam model)
+        {
+            Exam savedExam = _examRepository.AddExamInstance(model);
+            ExamDefinition def = _examRepository.GetExamById(savedExam.ExamDefId);
+            var questions = def.Questions.OrderBy(c => c.QuestionOrder);
+
+            ViewBag.ExamInstanceId = savedExam.Id;
+
+            return View("AnswerForQuestion", questions.First());
+        }
+
+        [HttpPost]
+        public IActionResult AnswerForQuestion(int ExamInstanceId, int QuestionId, string answerText)
+        {
+            int answerChoiceId = 0;
+            if (answerText == "A")
+                answerChoiceId = 0;
+            else if(answerText == "B")
+                answerChoiceId = 1;
+            else if (answerText == "C")
+                answerChoiceId = 2;
+            else if (answerText == "D")
+                answerChoiceId = 3;
+            ViewBag.ExamInstanceId = ExamInstanceId;
+            var examInstance = _examRepository.GetExamInstance(ExamInstanceId);
+
+            ExamAnswer answer = new ExamAnswer();
+            answer.ExamId = ExamInstanceId;
+            answer.QuestionId = QuestionId;
+            answer.SelectedChoiceId = answerChoiceId;
+
+            List<Question> questionList = examInstance.examDef.Questions.OrderBy(c=>c.QuestionOrder).ToList();
+
+            var answeredQuestion = questionList.First(c => c.Id == QuestionId);
+            questionList = questionList.Where(c => c.QuestionOrder > answeredQuestion.QuestionOrder).ToList();
+           
+            
+            _examRepository.AddExamAnswer(answer);
+            return View("AnswerForQuestion", questionList.First());
+           
+
+        }
     }
 }

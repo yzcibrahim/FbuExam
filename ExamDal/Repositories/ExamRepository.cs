@@ -39,7 +39,7 @@ namespace ExamDal.Repositories
 
         public ExamDefinition GetExamById(int id)
         {
-            ExamDefinition result = _ctx.ExamDefinitions.Include(c=>c.Questions).First(c => c.Id == id);
+            ExamDefinition result = _ctx.ExamDefinitions.Include(c=>c.Questions).ThenInclude(c=>c.Choice).First(c => c.Id == id);
             return result;
         }
 
@@ -48,6 +48,28 @@ namespace ExamDal.Repositories
             var silinecek = GetExamById(id);
             _ctx.ExamDefinitions.Remove(silinecek);
             _ctx.SaveChanges();
+        }
+
+        public Exam AddExamInstance(Exam exam)
+        {
+            _ctx.Exams.Add(exam);
+            _ctx.SaveChanges();
+            return exam;
+        }
+
+        public Exam GetExamInstance(int id)
+        {
+            Exam result = _ctx.Exams.Include(c => c.examDef).ThenInclude(c => c.Questions)
+                .ThenInclude(c => c.Choice)
+                .First(c => c.Id == id);
+            return result;
+        }
+
+        public ExamAnswer AddExamAnswer(ExamAnswer answer)
+        {
+            var result= _ctx.ExamAnswers.Add(answer);
+            _ctx.SaveChanges();
+            return answer;
         }
     }
 }
