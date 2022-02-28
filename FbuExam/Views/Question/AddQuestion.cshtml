@@ -30,6 +30,44 @@
                 <span asp-validation-for="QuestionOrder" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="AnswerA" class="control-label"></label>
+                @*<input asp-for="QuestionText" class="form-control" />*@
+                <input asp-for="AnswerA" class="form-control"></input>
+                <span asp-validation-for="AnswerA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnswerB" class="control-label"></label>
+                @*<input asp-for="QuestionText" class="form-control" />*@
+                <input asp-for="AnswerB" class="form-control"></input>
+                <span asp-validation-for="AnswerB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnswerC" class="control-label"></label>
+                @*<input asp-for="QuestionText" class="form-control" />*@
+                <input asp-for="AnswerC" class="form-control"></input>
+                <span asp-validation-for="AnswerC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnswerD" class="control-label"></label>
+                @*<input asp-for="QuestionText" class="form-control" />*@
+                <input asp-for="AnswerD" class="form-control"></input>
+                <span asp-validation-for="AnswerD" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CorrectAnswer" class="control-label"></label>
+                @*  <input asp-for="ExamId" class="form-control" />*@
+            <select id="CorrectAnswer" name="CorrectAnswer" class="form-control">
+
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+
+            </select>
+                <span asp-validation-for="ExamId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <label asp-for="ExamId" class="control-label"></label>
                 @*  <input asp-for="ExamId" class="form-control" />*@
                 <select id="ExamId" name="ExamId" class="form-control">

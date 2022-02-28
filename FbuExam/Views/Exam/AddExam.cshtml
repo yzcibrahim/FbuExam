@@ -6,7 +6,6 @@
 
 <h1>AddExam</h1>
 
-<h4>ExamDefinitionViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -29,11 +28,103 @@
     </div>
     <div class="col-md-8">
 
-        @Html.Partial("_QuestionListPartial", Model.Questions)
-       
+        @if (Model.Id > 0)
+        {
+            @Html.Partial("_QuestionListPartial", Model.Questions)
+            @*<a href="/Question/AddQuestion" class="btn btn-secondary">Soru ekle</a>*@
+        }
+
     </div>
 </div>
+<form asp-action="AddQuestion">
+    <div class="row">
 
+        <div class="col-md-4">
+            @if (Model.Id > 0)
+            {
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="QuestionToAdd.Id" class="control-label"></label>
+                    <input asp-for="QuestionToAdd.Id" readonly class="form-control" />
+                    <span asp-validation-for="QuestionToAdd.Id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="QuestionToAdd.QuestionText" class="control-label"></label>
+                    @*<input asp-for="QuestionText" class="form-control" />*@
+                    <textarea asp-for="QuestionToAdd.QuestionText" class="form-control"></textarea>
+                    <span asp-validation-for="QuestionToAdd.QuestionText" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="QuestionToAdd.QuestionOrder" class="control-label"></label>
+                    @*<input asp-for="QuestionText" class="form-control" />*@
+                    <input asp-for="QuestionToAdd.QuestionOrder" class="form-control"></input>
+                    <span asp-validation-for="QuestionToAdd.QuestionOrder" class="text-danger"></span>
+                </div>
+             
+
+                <div class="form-group">
+                    <label asp-for="QuestionToAdd.ExamId" class="control-label"></label>
+                    @*  <input asp-for="ExamId" class="form-control" />*@
+                    <select readonly id="QuestionToAdd.ExamId" name="QuestionToAdd.ExamId" class="form-control">
+                        <option value="@Model.Id">@Model.Name</option>
+                    </select>
+                    <span asp-validation-for="QuestionToAdd.ExamId" class="text-danger"></span>
+                </div>
+               
+
+
+            }
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="QuestionToAdd.AnswerA" class="control-label"></label>
+                @*<input asp-for="QuestionText" class="form-control" />*@
+                <input asp-for="QuestionToAdd.AnswerA" class="form-control"></input>
+                <span asp-validation-for="QuestionToAdd.AnswerA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionToAdd.AnswerB" class="control-label"></label>
+                @*<input asp-for="QuestionText" class="form-control" />*@
+                <input asp-for="QuestionToAdd.AnswerB" class="form-control"></input>
+                <span asp-validation-for="QuestionToAdd.AnswerB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionToAdd.AnswerC" class="control-label"></label>
+                @*<input asp-for="QuestionText" class="form-control" />*@
+                <input asp-for="QuestionToAdd.AnswerC" class="form-control"></input>
+                <span asp-validation-for="QuestionToAdd.AnswerC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionToAdd.AnswerD" class="control-label"></label>
+                @*<input asp-for="QuestionText" class="form-control" />*@
+                <input asp-for="QuestionToAdd.AnswerD" class="form-control"></input>
+                <span asp-validation-for="QuestionToAdd.AnswerD" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionToAdd.CorrectAnswer" class="control-label"></label>
+                @*  <input asp-for="ExamId" class="form-control" />*@
+                <select id="QuestionToAdd.CorrectAnswer" name="QuestionToAdd.CorrectAnswer" class="form-control">
+
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+
+                </select>
+                <span asp-validation-for="QuestionToAdd.CorrectAnswer" class="text-danger"></span>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

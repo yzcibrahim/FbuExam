@@ -16,7 +16,7 @@ namespace ExamDal.Repositories
             _ctx = ctx;
 
         }
-        public void InsertOrUpdate(ExamDefinition exam)
+        public int InsertOrUpdate(ExamDefinition exam)
         {
             if (exam.Id <= 0)
             {
@@ -28,6 +28,7 @@ namespace ExamDal.Repositories
             }
             _ctx.SaveChanges();
 
+            return exam.Id;
         }
 
         public List<ExamDefinition> GetExams()

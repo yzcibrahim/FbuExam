@@ -21,7 +21,7 @@ namespace ExamDal.Repositories
             return _ctx.Questions.Include(c=>c.ExamDef).ToList();
         }
 
-        public void AddOrUpdateQuestion(Question question)
+        public int AddOrUpdateQuestion(Question question)
         {
             if (question.Id <= 0)
             {
@@ -35,6 +35,8 @@ namespace ExamDal.Repositories
                 
             }
             _ctx.SaveChanges();
+
+            return question.Id;
         }
 
         public Question GetQuestionById(int id)

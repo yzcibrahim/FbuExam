@@ -12,9 +12,13 @@ namespace FbuExam.Controllers
     public class ExamController : Controller
     {
         ExamRepository _examRepository;
-        public ExamController(ExamRepository examRepository)
+        QuestionRepository _questionRepository;
+        ChoiceRepository _choiceRepository;
+        public ExamController(ExamRepository examRepository, QuestionRepository questionRepository, ChoiceRepository choiceRepository)
         {
             _examRepository = examRepository;
+            _questionRepository = questionRepository;
+            _choiceRepository = choiceRepository;
         }
         public IActionResult Index()
         {
@@ -86,8 +90,67 @@ namespace FbuExam.Controllers
             ExamDefinition dataModel = new ExamDefinition();
             dataModel.Name = model.Name;
             dataModel.Id = model.Id;
-            _examRepository.InsertOrUpdate(dataModel);
-            return RedirectToAction("ListExams");
+          int savedId =  _examRepository.InsertOrUpdate(dataModel);
+            // return RedirectToAction("ListExams");
+            return RedirectToAction("AddExam", new { id = savedId });
+        }
+
+        [HttpPost]
+        public IActionResult AddQuestion(ExamDefinitionViewModel model)
+        {
+            //Question q = new Question();
+            //q.Id = model.Id;
+            //q.QuestionText = model.QuestionText;
+            //q.ExamId = model.ExamId;
+
+            var questionToAdd = model.QuestionToAdd;
+            Question q = new Question()
+            {
+                Id = questionToAdd.Id,
+                ExamId = questionToAdd.ExamId,
+                QuestionText = questionToAdd.QuestionText,
+                QuestionOrder = questionToAdd.QuestionOrder
+            };
+
+           int savedQuestionId = _questionRepository.AddOrUpdateQuestion(q);
+
+
+            Choice choice1 = new Choice();
+            choice1.QuestionId = savedQuestionId;
+            choice1.ChoiceNum = 0;
+            choice1.ChText = questionToAdd.AnswerA;
+            choice1.IsCorrect = questionToAdd.CorrectAnswer == "A";
+
+            _choiceRepository.AddOrUpdateChoice(choice1);
+
+            choice1 = new Choice();
+            choice1.QuestionId = savedQuestionId;
+            choice1.ChoiceNum = 1;
+            choice1.ChText = questionToAdd.AnswerB;
+            choice1.IsCorrect = questionToAdd.CorrectAnswer == "B";
+
+            _choiceRepository.AddOrUpdateChoice(choice1);
+
+            choice1 = new Choice();
+            choice1.QuestionId = savedQuestionId;
+            choice1.ChoiceNum = 2;
+            choice1.ChText = questionToAdd.AnswerC;
+            choice1.IsCorrect = questionToAdd.CorrectAnswer == "C";
+
+            _choiceRepository.AddOrUpdateChoice(choice1);
+
+            choice1 = new Choice();
+            choice1.QuestionId = savedQuestionId;
+            choice1.ChoiceNum = 3;
+            choice1.ChText = questionToAdd.AnswerD;
+            choice1.IsCorrect = questionToAdd.CorrectAnswer == "D";
+
+            _choiceRepository.AddOrUpdateChoice(choice1);
+
+            // List<Choice> Choices = new List<Choice>();
+
+
+            return RedirectToAction("AddExam", new { id = questionToAdd.ExamId });
         }
 
         public IActionResult Delete(int id)

@@ -14,5 +14,7 @@ namespace FbuExam.Models
 
         public List<QuestionViewModel> Questions { get; set; } = new List<QuestionViewModel>();
 
+        public QuestionViewModel QuestionToAdd { get; set; } = new QuestionViewModel();
+
     }
 }
